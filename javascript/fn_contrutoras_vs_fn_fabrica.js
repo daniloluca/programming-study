@@ -1,7 +1,6 @@
 // Funções Contrutoras vs. Funções Fábrica
 
 // Funções Fábrica:
-
 var criarPessoa = function(nome, idade) {
     return {
         nome: nome,
@@ -13,7 +12,6 @@ console.log(criarPessoa("Pedro", 20));
 console.log(criarPessoa("Maria", 30));
 
 // Função Contrutora:
-
 var Pessoa = function(nome, idade) {
     this.nome = nome;
     this.idade = idade;

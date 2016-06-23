@@ -3,7 +3,6 @@
 // significado = fechamento, encerramento, encarceramento
 
 // Exemplo:
-
 var helloWorld = function(){
 	var message = 'Hello World!';
 	return function(){
