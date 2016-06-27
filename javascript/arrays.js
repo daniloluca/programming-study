@@ -32,7 +32,7 @@ carros[0] = 'Ka';
 carros[1] = 'Corsa';
 carros[2] = 'Palio';
 
-carros.valueOf(); //['Ka', 'Corsa', 'Palio']
+carros.valueOf(); // ['Ka', 'Corsa', 'Palio']
 
 // toString
 var carros = [];
