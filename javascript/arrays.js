@@ -205,10 +205,10 @@ carros.every(function(element){
 	return element.marca === 'Ford';
 });
 //false
-//A função every retorna um booleano indicando se TODOS os elementos do arrays
-//passaram no teste da condição da função, descrita no retorno da mesma.
+// A função every retorna um booleano indicando se TODOS os elementos do arrays
+// passaram no teste da condição da função, descrita no retorno da mesma.
 
-//some
+// some
 var carros = [];
 
 carros[0] = {marca: 'Ford', modelo: 'Ka'};
@@ -219,10 +219,10 @@ carros.some(function(element){
 	return element.marca === 'Ford';
 });
 //true
-//A função some retorna um booleano indicando se ALGUM dos elementos do arrays
-//passou no teste da condição da função, descrita no retorno da mesma.
+// A função some retorna um booleano indicando se ALGUM dos elementos do arrays
+// passou no teste da condição da função, descrita no retorno da mesma.
 
-//map
+// map
 var carros = [];
 
 carros[0] = {marca: 'Ford', modelo: 'Ka'};
@@ -231,14 +231,14 @@ carros[2] = {marca: 'Fiat', modelo: 'Palio'};
 
 carros.map(function(element){
 	return element.marca;
-	//return element.marca.length //Retorna a quantidade de caracteres de cada marca.
+	// return element.marca.length //Retorna a quantidade de caracteres de cada marca.
 });
-//['Ford', 'Chevrolet', 'Fiat']
-//A função map irá retornar um novo array que terá somente os valores passados
-//na condição para cada elemento do array.
-//No exemplo, será retornado um novo array contendo somente a marca de todos os carros.
+// ['Ford', 'Chevrolet', 'Fiat']
+// A função map irá retornar um novo array que terá somente os valores passados
+// na condição para cada elemento do array.
+// No exemplo, será retornado um novo array contendo somente a marca de todos os carros.
 
-//reduce
+// reduce
 var carros = [];
 
 carros[0] = {modelo: 'Ka', preco: 2880};
@@ -257,7 +257,7 @@ carros.reduce(function(prev, cur){
 // O segundo parametro do reduce, depois da function, é o valor com o qual o primeiro
 // parametro da função será inicilizado para iniciar o acumulo.
 
-//concat
+// concat
 var carros = ['Ka', 'Corsa', 'Palio'];
 var motos = ['Honda', 'Yamaha'];
 
@@ -268,7 +268,7 @@ var veiculos = carros.concat(motos);
 
 veiculos.toString(); //['Ka', 'Corsa', 'Palio', 'Honda', 'Yamaha']
 
-//slice
+// slice
 var carros = [];
 
 carros[0] = 'Ka';
@@ -308,7 +308,7 @@ carros[2] = {modelo: 'Palio', preco: 32000};
 
 carros.sort(function(a, b){
 	return a.preco - b.preco;
-});
+}); // retorno = novo array ordenado.
 // Sem nenhuma função no sorte, ele irá retornar o array ordenado por ordem alfabetica.
 // Pode ser passada uma função para o sort para dizer qual é a ordem que o array deve
 // ser retornado.
@@ -316,6 +316,7 @@ carros.sort(function(a, b){
 // O retorno da função deve retornar um numero positivo, indicando que o primeiro elemento é
 // maior que o segundo, um numero negativo, indicando que o segundo elemento é maior, ou
 // o numero 0, indicando que os dois são iguais e que não a necessidade de alteração.
+// ALTERA O ARRAY ORIGINAL.
 
 carros.valueOf(); // ['Ka', 'Palio', 'Corsa']
 
@@ -331,6 +332,8 @@ carros.join(';'); // 'Ka;Corsa;Palio;Gol'
 // O join junta os elementos do array e entre eles, adiciona o separador passado
 // via parametro.
 // A string montada com os elementos separados pelo ; é retornada pelo comando.
+// Se não for passado nenhuma string no parametro, o join separa os elementos na
+// string por uma virgula.
 
 
 // Exemplo de utilização dos conceitos
