@@ -10,6 +10,7 @@ class NegociacaoController {
 	adiciona(event){
 		event.preventDefault();
 
+		// ... spread operator
 		let data = new Date(
 			...this._inputData.value
 				.split('-')
