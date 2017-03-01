@@ -110,6 +110,7 @@
 		};
 	}
 
+	// "Multiple Assignment"
 	let {first, last, fullName} = buildUser('Sam', 'Williams'); // Example
 
 	console.log(first); // > Sam
