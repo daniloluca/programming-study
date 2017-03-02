@@ -285,5 +285,53 @@
 
 	// Features
 		// WeakMap just accept objects as keys
-		// WeakMap is better with memory
+		// WeakMap is a more memory efficient type of Map
 		// WeakMap don't prevent the garbage collector from collecting objects currently used as keys, but that are no longer referenced anywhere else in the system.
+
+// Sets
+	// Example 1
+		let tags = new Set();
+
+		tags.add('Javascript');
+		tags.add('Programming');
+		tags.add({version: '2015'}); // Both primitive values and objects are allowed
+		tags.add('Web');
+		tags.add('Web'); // Duplicate entries are ignored
+
+		console.log('Total items ', tags.size); // > Total items 4
+	// Example 2
+		let tags = new Set();
+
+		tags.add('JavaScript');
+		tags.add('Programming');
+		tags.add({version: '2015'});
+		tags.add('Web');
+
+		// > JavaScript
+		// > Programming
+		// > {version:'2015'}
+		// > Web
+		for(let tag of tags){
+			console.log(tag);
+		}
+
+		// Extracting elements from Set via destructuring
+		let [a, b, c, d] = tags;
+		console.log(a, b, c, d); // > JavaScript Programming {version:'2015'} Web
+
+// WeakSet
+	let weakTags = new WeakSet();
+
+	weakTags.add('JavaScript'); // > TypeError: Invalid value used in weak set
+	weakTags.add({name: 'JavaScript'});
+	let iOS = {name: 'iOS'};
+	weakTags.add(iOS);
+
+	weakTags.has(iOS); // > true
+	weakTags.delete(iOS); // > true
+
+	// Features
+		// Only objects can be added
+		// WeakSets don't prevent the garbage collector from collecting entries that are no longer used in other parts of the system
+		// WeakSets are not iterable! (you can't use it in a for...of)
+		// WeakSets can be used to create special groups from existing objects withou mutating them. Favoring immutable objects allows for much simpler code with no unexpected side effects.
