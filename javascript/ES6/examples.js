@@ -1,24 +1,24 @@
 // let and const (to stop the Hoisting)
-// let
-	let a = 0;
+	// let
+		let a = 0;
 
-	if(a == 0){
-		let b = 1;
-	}
+		if(a == 0){
+			let b = 1;
+		}
 
-	console.log(b); // > Error 'b' is not defined
+		console.log(b); // > Error 'b' is not defined
 
-// const
-	let someNum = 5;
-	const MAX_NUMBER = 2;
+	// const
+		let someNum = 5;
+		const MAX_NUMBER = 2;
 
-	function isGreaterThanMax(num){
-		const SOME_NUMBER = num;
-		return SOME_NUMBER > MAX_NUMBER;
-	}
+		function isGreaterThanMax(num){
+			const SOME_NUMBER = num;
+			return SOME_NUMBER > MAX_NUMBER;
+		}
 
-	console.log(isGreaterThanMax(someNum)); // > true
-	console.log(SOME_NUMBER); // > Error 'SOME_NUMBER' is not defined
+		console.log(isGreaterThanMax(someNum)); // > true
+		console.log(SOME_NUMBER); // > Error 'SOME_NUMBER' is not defined
 
 // Default Paramater Values
 	function People(name = 'Default', info = {}){
@@ -154,77 +154,77 @@
 					   // >
 
 // Object.assign
-	// Sample 1
-	function countDownTimer(target, options = {}){
-		let defaults = {
-			time: 7200,
-			delay: 100,
-			direction: 'right'
+	// Example 1
+		function countDownTimer(target, options = {}){
+			let defaults = {
+				time: 7200,
+				delay: 100,
+				direction: 'right'
+			}
+
+			let settings = Object.assign({}, defaults, options); // the first parameter of Object.assign is the final merge object, if you put an object in there it will be overwrited.
+			//...
 		}
 
-		let settings = Object.assign({}, defaults, options); // the first parameter of Object.assign is the final merge object, if you put an object in there it will be overwrited.
-		//...
-	}
+	// Example 2
+		let a = 1;
+		let b = 2;
+		let c = 3;
 
-	// Sample 2
-	let a = 1;
-	let b = 2;
-	let c = 3;
+		let obj1 = {a, c};
+		let obj2 = {b};
 
-	let obj1 = {a, c};
-	let obj2 = {b};
+		let result = Object.assign({}, obj1, obj2);
 
-	let result = Object.assign({}, obj1, obj2);
+		console.log(result); // > {a: 1, b: 2, c: 3}
 
-	console.log(result); // > {a: 1, b: 2, c: 3}
+	// Example 3
+		let a = 1;
+		let b = 2;
+		let c = 3;
+		let d = 4;
+		let e = 5;
 
-	// Sample 3
-	let a = 1;
-	let b = 2;
-	let c = 3;
-	let d = 4;
-	let e = 5;
+		let array = [
+			{a, e},
+			{c, d},
+			{b}
+		];
 
-	let array = [
-		{a, e},
-		{c, d},
-		{b}
-	];
+		let result = Object.assign({}, ...array);
 
-	let result = Object.assign({}, ...array);
-
-	console.log(result); // > { a: 1, e: 5, c: 3, d: 4, b: 2 }
+		console.log(result); // > { a: 1, e: 5, c: 3, d: 4, b: 2 }
 
 // Array Destructuring
-	// Sample 1
-	let users = ['Sam', 'Tyler', 'Brook'];
-
-	let [a, b, c] = users;
-
-	console.log(a, b, c); // > Sam Tyler Brook
-
-	// Sample 2
-	let users = ['Sam', 'Tyler', 'Brook'];
-
-	let [a, , c] = users;
-
-	console.log(a, c); // > Sam Brook
-
-	// Sample 3 - Combining rest parameters
-	let users = ['Sam', 'Tyler', 'Brook'];
-
-	let [first, ...rest];
-
-	console.log(first, rest); // > Sam ['Tyler', 'Brook']
-
-	// Sample 4
-	function activeUsers(){
+	// Example 1
 		let users = ['Sam', 'Tyler', 'Brook'];
-		return users;
-	}
 
-	let [a, b, c] = activeUsers();
-	console.log(a, b, c); // > Sam Tyler Brook
+		let [a, b, c] = users;
+
+		console.log(a, b, c); // > Sam Tyler Brook
+
+	// Example 2
+		let users = ['Sam', 'Tyler', 'Brook'];
+
+		let [a, , c] = users;
+
+		console.log(a, c); // > Sam Brook
+
+	// Example 3 - Combining rest parameters
+		let users = ['Sam', 'Tyler', 'Brook'];
+
+		let [first, ...rest];
+
+		console.log(first, rest); // > Sam ['Tyler', 'Brook']
+
+	// Example 4
+		function activeUsers(){
+			let users = ['Sam', 'Tyler', 'Brook'];
+			return users;
+		}
+
+		let [a, b, c] = activeUsers();1
+		console.log(a, b, c); // > Sam Tyler Brook
 
 // for...of
 	let names = ['Sam', 'Tyler', 'Brook'];
@@ -240,6 +240,50 @@
 		{login: 'Tyler', admin: true}
 	];
 
-	let admin = users.find(user => user.admin); // Returns first object for which user.admin is true
+	let admin = users.find(user => user.admin); // Returns the first object where user.admin is true
 
 	console.log(admin); // > {'login': 'Brook', 'admin': true}
+
+// Map
+	// Simple Example
+		let user1 = {name: 'Sam'};
+		let user2 = {name: 'Tyler'};
+
+		let totalReplies = new Map();
+		totalReplies.set(user1, 5);
+		totalReplies.set(user2, 42);
+
+		console.log(totalReplies.get(user1)); // > 5
+		console.log(totalReplies.get(user2)); // > 42
+
+	// Using Map with for...of
+		let mapSettings = new Map();
+
+		mapSettings.set('user', 'Sam');
+		mapSettings.set('topic', 'ES2015');
+		mapSettings.set('replies', ["Can't wait!", 'So Cool']);
+
+		// > user = Sam
+		// > topic = ES2015
+		// > replies = Can't wait!,So Cool
+		for(let [key, value] of mapSettings){
+			console.log(`${key} = ${value}`);
+		}
+
+// WeakMap
+	let user = {};
+	let comment = {};
+
+	let mapSettings = new WeakMap();
+	mapSettings.set(user, 'user');
+	mapSettings.set(comment, 'comment');
+
+	console.log(mapSettings.get(user)); // > user
+	console.log(mapSettings.get(comment)); // > comment
+
+	mapSettings.set('title', 'ES2015'); // > invalid value used as weak map key
+
+	// Features
+		// WeakMap just accept objects as keys
+		// WeakMap is better with memory
+		// WeakMap don't prevent the garbage collector from collecting objects currently used as keys, but that are no longer referenced anywhere else in the system.
