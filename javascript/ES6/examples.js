@@ -335,3 +335,72 @@
 		// WeakSets don't prevent the garbage collector from collecting entries that are no longer used in other parts of the system
 		// WeakSets are not iterable! (you can't use it in a for...of)
 		// WeakSets can be used to create special groups from existing objects withou mutating them. Favoring immutable objects allows for much simpler code with no unexpected side effects.
+
+// Classes
+	// Already written
+
+// Modules
+	// Example 1
+		// flash-message.js
+			export default function(message) { // "default" let you export an anonymous function withou specifing a name
+				alert(message);
+			}
+
+		// app.js
+			import flashMessage from './flash-message'; // "flashMessage" could be whatever name because the export of flash-message.js is using default
+
+	// Example 2
+		// flash-message.js
+			// to export multiple function os classes you need to remove the "default" and specify the name of the functions
+			export function alertMessage(message) {
+				alert(message);
+			}
+			// same here
+			export function logMessage(message) {
+				console.log(message);
+			}
+
+		// app.js
+			// when you are importing functions or classes from a file that have multiple exports (that means there is no default function),
+			// you need to specify the name of the function you are importing. This name has to be the same name as the function in the flash-message.js
+			import { alertMessage, logMessage } from './flash-message'; // yes, you can import one or more functions of classes using { ... }
+
+			alertMessage('Hello from alert');
+			logMessage('Hello from log');
+
+	// Example 3
+		// flash-message.js
+			export function alertMessage(message) {
+				alert(message);
+			}
+
+			export function logMessage(message) {
+				console.log(message);
+			}
+
+		// app.js
+			import * as flash from './flash-message'; // all the functions in the file can be assign to an object using this sintax (import * as [var] from [file])
+
+			// and can be used as an method of the object
+			flash.alertMessage('Hello from alert');
+			flash.logMessage('Hello from log');
+
+	// Example 4
+		// flash-message.js
+			// all the functions can be declared normaly (without the "export")
+			function alertMessage(message) {
+				alert(message);
+			}
+
+			function logMessage(message) {
+				console.log(message);
+			}
+
+			// then you can export them all at the same time like this
+			export { alertMessage, logMessage };
+
+		// app.js
+			import { alertMessage, logMessage } fom './flash-message';
+
+			alertMessage('Hello from alert');
+			logMessage('Hello from log');
