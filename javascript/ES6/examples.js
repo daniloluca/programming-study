@@ -339,7 +339,7 @@
 // Classes
 	// Already written
 
-// Modules
+// Modules I
 	// Example 1
 		// flash-message.js
 			export default function(message) { // "default" let you export an anonymous function withou specifing a name
@@ -404,3 +404,99 @@
 
 			alertMessage('Hello from alert');
 			logMessage('Hello from log');
+
+// Modules II
+	// Exporting/Importing Constants
+		// Example 1 - exporting
+			// constants.js
+				export const MAX_USERS = 3;
+				export const MAX_REPLIES = 3;
+
+				// or
+
+				const MAX_USERS = 3;
+				const MAX_REPLIES = 3;
+
+				export { MAX_USERS, MAX_REPLIES };
+
+		// Example 2 - importing
+			// load-profile.js
+				import {MAX_REPLIES, MAX_USERS } from './constants';
+
+				function loadProfiles(userName) {
+					if(userName.length > MAX_USERS) {
+						// ...
+					}
+
+					if(someElement > MAX_REPLIES) {
+						// ...
+					}
+				}
+
+		// Example 3 - importing
+			// list-replies.js
+				import { MAX_REPLIES } from './constants';
+
+				function listReplies(replies = []) {
+					if(replies.length > MAX_REPLIES) {
+						// ...
+					}
+				}
+
+			// display-watchers.js
+				import { MAX_USERS } from './constants';
+
+				function displayWatchers(watchers = []) {
+					if(watchers.length > MAX_USERS) {
+						// ...
+					}
+				}
+
+	// Exporting Class
+		// Example 1
+			// flash-message.js
+				export default class FlashMessage { // "default" allows this class to be set to any variable name once it's imported
+					constructor(message) {
+						this.message = message;
+					}
+
+					renderAlert() {
+						alert(`${this.message} from alert`);
+					}
+
+					renderLog() {
+						console.log(`${this.message} from log`);
+					}
+				}
+
+			// app.js
+				import FlashMessage from './flash-message'; // Importing a class, so F is capitalized
+
+				let flash = new FlashMessage("Hello");
+				flash.renderAlert();
+				flash.renderLog();
+
+		// Example 2
+			// flash-message.js
+				class FlashMessage { // Plain old JavaScript class declaration
+					constructor(message) {
+						this.message = message;
+					}
+
+					renderAlert() {
+						alert(`${this.message} from alert`);
+					}
+
+					renderLog() {
+						console.log(`${this.message} from log`);
+					}
+				}
+
+				export { FlashMessage }; // Exports class to the outside world
+
+			// app.js
+				import { FlashMessage } from './flash-message'; // the name of the variable must match with the name of the class because the class is not been exported using "default"
+
+				let flash = new FlashMessage("Hello");
+				flash.renderAlert();
+				flash.renderLog();
