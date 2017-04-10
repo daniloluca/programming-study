@@ -500,3 +500,153 @@
 				let flash = new FlashMessage("Hello");
 				flash.renderAlert();
 				flash.renderLog();
+
+// Promises
+	// When a promise is created it assume the "pending" state, then with the use of the function arguments "resolve" and "reject" it changes to
+	// fulfilled for "resolve" and rejected for "reject"
+	// Example
+	function getPollResultsFromServer(pollName) {
+		// ...
+		return new Promie(function(resolve, reject) { // Promisse have two arguments that are used as functions to resolve or reject the promisse, making it calling the callback in "then" for resolve and "catch" for reject.
+			request.onload = function() {
+				if(request.status >= 200 && request.status < 400) {
+					resolve(request.response);
+				} else {
+					reject(new Error(request.status));
+				}
+			};
+			request.onerror = function() {
+				reject(new Error("Error Fetching Results"));
+			}
+		});
+		// ...
+	}
+
+	function filterResults(results) {	/* ... */	}
+
+	let ui = {
+		renderSidebar(filteredResults) { /* ... */ } // method initializer shorthand syntax.
+	}
+
+	getPollResultsFromServer("Sass vs. Less")
+		.then(filterResults)
+		.then(ui.renderSidebar) // Passing function arguments make this code easier to read
+		.catch(function(error){
+			console.log("Error: ", error); // Still catches all errors from previous calls
+		});
+
+// Iterator
+	// Example 1 - Making an object iterable.
+		let post = {
+			title: "New Features in JS",
+			replies: 19
+		};
+
+		post[Symbol.iterator] = function() {
+
+			let properties = Object.keys(this);
+			let count = 0;
+			let isDone = false;
+
+			let next = () => {
+				if(count >= properties.length) {
+					isDone = true;
+				}
+				return { done: isDone, value: this[properties[count++]] };
+			}
+
+			return { next };
+		};
+
+		for(let p of posts) {
+			console.log(p); // > New Features in JS
+											// > 19
+		}
+
+	// Example 2 - Iterables with the Spread Operator
+		let post = {
+			title: "New Features in JS",
+			replies: 19
+		};
+
+		post[Symbol.iterator] = function() {
+			// ...
+			return { next };
+		}
+
+		let values = [...post];
+		console.log(values); // > ['New Features in JS',19]
+
+	// Example 3 - Iterables with Destructuring
+		let post = {
+			title: "New Features in JS",
+			replies: 19
+		};
+
+		post[Symbol.iterator] = function() {
+			// ...
+			return { next };
+		};
+
+		let [title, replies] = post;
+		console.log(title);		// > New Features in JS
+		console.log(replies);	// > 19
+
+// Generators
+	// Generator Functions - These are special functions from which we can use the yield keyword to return iterator objects.
+	// it uses the * character to define that the function is a Generator Functions
+		// Example 1 - Declaration
+			function *nameList() {
+				yield "Sam";		// { done: false, value: "Sam" }
+				yield "Tyler";	// { done: false, value: "Tyler" }
+			}
+
+			// the star (*) can have whatever spaces between de key "function" and the name of that function.
+			function *nameList() {}
+			function* nameList() {}
+			function * nameList() {}
+
+		// Example 2 - for...of
+			function *nameList() {
+				yield "Sam";		// { done: false, value: "Sam" }
+				yield "Tyler";	// { done: false, value: "Tyler" }
+			}
+
+			// Calling the function returns a generator object
+			for(let name of nameList()) {
+				console.log(name);	// > Sam
+														// > Tyler
+			}
+
+			let names = [...nameList()];
+			console.log(names); // > ["Sam", "Tyler"]
+
+			let [first, second] = nameList();
+			console.log(first, second); // > Sam Tyler
+
+		// Example 3 - Refactoring the code that turn the object "post" iterable by using Generator Functions
+			let post = {
+				title: "New Features in JS",
+				replies: 19
+			};
+
+			post[Symbol.iterator] = function *() {
+
+				let properties = Object.key(this);
+				for(let p of properties) {
+					yield this[p];
+				}
+			};
+
+			// The code above is the same as:
+			/*
+				post[Symbol.iterator] = function *() {
+					yield this.title;
+					yield this.replies;
+				}
+			*/
+
+			for(let p of post) {
+				console.log(p); // > New Features in JS
+												// > 19
+			}
